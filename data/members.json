@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "name": "Dave Woods",
+    "email": "dwoods@tcd.ie",
+    "entries": [
+      {
+        "date": 1562865725502,
+        "competitiveLevel": "Elite"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Conor Delaney",
+    "email": "delanec9@tcd.ie",
+    "entries": [
+      {
+        "date": 1562867479138,
+        "competitiveLevel": "Advanced"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Seán Murray",
+    "email": "murras11@tcd.ie",
+    "entries": [
+      {
+        "date": 1562867846228,
+        "competitiveLevel": "Intervanced"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Ethan Hamman",
+    "email": "hammane@tcd.ie",
+    "entries": [
+      {
+        "date": 1562867929048,
+        "competitiveLevel": "Intermediate"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Caitríona Quinn",
+    "email": "quinnc18@tcd.ie",
+    "entries": [
+      {
+        "date": 1562868161990,
+        "competitiveLevel": "Intervanced"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Adelais Farnell Sharp",
+    "email": "adelaisfsharp@gmail.com",
+    "entries": [
+      {
+        "date": 1562868543455,
+        "competitiveLevel": "Elite"
+      }
+    ]
+  }
+]
