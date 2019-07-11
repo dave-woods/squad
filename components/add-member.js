@@ -14,7 +14,7 @@ const AddMember = ({levelOptions, updateMembers}) => {
     }).then(function(response) {
       // Display whether the add was successful here
       if (response.data.error) {
-        console.log(error)
+        console.log(response.data.error)
       } else {
         updateMembers(response.data.members) // this won't work with hot-reloading active i.e. dev mode!
         setName('')
