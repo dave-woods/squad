@@ -16,7 +16,7 @@ const AddMember = ({levelOptions, updateMembers}) => {
       if (response.data.error) {
         console.log(response.data.error)
       } else {
-        updateMembers(response.data.members) // this won't work with hot-reloading active i.e. dev mode!
+        updateMembers(response.data.newMember) // this won't work with hot-reloading active i.e. dev mode!
         setName('')
         setEmail('')
         setLevel(levelOptions[0])

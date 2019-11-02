@@ -1,11 +1,16 @@
 import React from 'react'
 import Link from 'next/link'
 
-const MemberList = ({ members }) => {
+const MemberList = ({ members, loadingError }) => {
+    if (loadingError) {
+        console.error(loadingError)
+    }
     return (
         <>
         {
-            members ?
+            loadingError ?
+            <p className="description">An error occurred while trying to load the member list.</p> :
+            members && members.length > 0 ?
             <ul>{ members.map(m => <MemberListItem key={`member-${m.id}`} member={m}/>) }</ul> :
             <p className="description">To get started, add members below.</p>
         }
@@ -26,7 +31,7 @@ const MemberList = ({ members }) => {
 const MemberListItem = ({ member }) => {
     return (
     <>
-        <li><Link href='/member/[id]' as={`/member/${member.id}`}><a><span>{member.name}</span><span>{member.entries[member.entries.length - 1].competitiveLevel}</span></a></Link></li>
+        <li><Link href='/member/[id]' as={`/member/${member.id}`}><a><span>{member.name}</span><span>{member.competitiveLevel}</span></a></Link></li>
         <style jsx>{`
         li {
             background: #EFEFEF;

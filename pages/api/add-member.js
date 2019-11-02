@@ -1,23 +1,42 @@
-import fs from 'fs'
-const members = require('../../data/members.json')
+import mongoose from 'mongoose'
+const dotenv = require('dotenv')
+dotenv.config()
 
 export default async function handle(req, res) {
-    const {name, level, email} = req.body
-    const newMember = {
-        "id": members ? members.length + 1 : 1,
-        "name": name,
-        "email": email || "",
-        "entries": [
-            {
-                "date": Date.now(),
-                "competitiveLevel": level
-            }
-        ]
-    }
-    members.push(newMember)
-    fs.writeFile('data/members.json', JSON.stringify(members, null, 2), function (error) {
-        if (error) return res.json({error});
-        console.log(`Adding new member ${name} to 'members.json'`);
-        res.json({members})
+    mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_URL}/squad?retryWrites=true&w=majority`, {useNewUrlParser: true})
+    const conn = mongoose.connection
+    conn.on('error', (err) => {
+        conn.close()
+        return res.status(500).json({err})
+    })
+    conn.once('open', async () => {
+        try {
+            const Member = !mongoose.models.Member ? require('../../static/models/memberModel') : mongoose.model('Member')
+        
+            const {name, level, email} = req.body
+
+            Member.countDocuments({}, (err, count) => {
+                if (err) {
+                    conn.close()
+                    return res.status(500).json({err})
+                } 
+                const newMember = new Member({
+                    id: count,
+                    name,
+                    email,
+                    competitiveLevel: level,
+                })
+                newMember.save((err, newMember) => {
+                    conn.close()
+                    if (err) {
+                        return res.status(500).json({err})
+                    }
+                    res.json({newMember})
+                })
+            })
+        } catch (err) {
+            conn.close()
+            return res.status(500).json({err})
+        }
     })
 }
