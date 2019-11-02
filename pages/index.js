@@ -73,7 +73,7 @@ Home.getInitialProps = async function() {
     err: false
   }
   try{
-    mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_URL}/squad?retryWrites=true&w=majority`, {useNewUrlParser: true})
+    mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
   } catch (err) {
     props.err = err
     return props

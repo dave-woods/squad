@@ -3,7 +3,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 export default async function handle(req, res) {
-    mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_URL}/squad?retryWrites=true&w=majority`, {useNewUrlParser: true})
+    mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
     const conn = mongoose.connection
     conn.on('error', (err) => {
         conn.close()
