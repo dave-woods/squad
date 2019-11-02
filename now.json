@@ -2,8 +2,8 @@
     "version": 2,
     "builds": [{ "src": "package.json", "use": "@now/next" }],
     "env": {
-        "MONGO_USER": "@gmail-user-env",
-        "MONGO_PASS": "@gmail-pass-env",
-        "MONGO_URL": "@webmaster-email-env"
+        "MONGO_USER": "@mongo-user-env",
+        "MONGO_PASS": "@mongo-pass-env",
+        "MONGO_URL": "@mongo-url-env"
     }
 }
