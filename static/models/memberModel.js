@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
+
 // define Schema
 const memberSchema = new Schema({
     id: Number,
@@ -12,19 +13,6 @@ const memberSchema = new Schema({
     comments: [String]
 })
 
-// {
-//     "id": 1,
-//     "name": "Dave Woods",
-//     "email": "dwoods@tcd.ie",
-//     "entries": [
-//       {
-//         "date": 1562865725502,
-//         "competitiveLevel": "Elite"
-//       }
-//     ]
-//   },
-
-
-// compile to model
-module.exports = mongoose.model('Member', memberSchema)
+// compile to model if it doesn't already exist
+module.exports = mongoose.models.Member ? mongoose.model('Member') : mongoose.model('Member', memberSchema)
 

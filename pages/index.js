@@ -3,9 +3,7 @@ import Head from '../components/head'
 import Nav from '../components/nav'
 import AddMember from '../components/add-member'
 import MemberList from '../components/member-list'
-import mongoose from 'mongoose'
-const dotenv = require('dotenv')
-dotenv.config()
+const connectToDb = require('./api/db')
 
 const levelOptions = [
   'Beginner',
@@ -21,7 +19,7 @@ let cache = {}
 const Home = (props) => {
   const [members, setMembers] = useState(props.members)
   if (process.browser) {
-    cache['propCache'] = {members, err: props.err};
+    cache['propCache'] = {members, err: props.err}
   }
   return (
     <div>
@@ -72,25 +70,26 @@ Home.getInitialProps = async function() {
     members: [],
     err: false
   }
+  let conn
   try{
-    mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
+    const mg = await connectToDb()
+    conn = mg.connection
   } catch (err) {
     props.err = err
     return props
   }
-  const conn = mongoose.connection
   conn.on('error', (err) => {
-    conn.close()
+    // conn.close()
     props.err = err
   })
   try {
-    const Member = !mongoose.models.Member ? require('../static/models/memberModel') : mongoose.model('Member')
+    const Member = require('../static/models/memberModel')
     props.members = await Member.find({})
   }
   catch (err) {
     props.err = err
   }
-  conn.close()
+  // conn.close()
   return props
 }
 
